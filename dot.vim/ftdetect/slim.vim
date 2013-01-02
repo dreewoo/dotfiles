@@ -1,0 +1,1 @@
+/home/dreewoo/git/vim-slim/ftdetect/slim.vim
