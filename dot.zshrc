@@ -30,7 +30,6 @@ bindkey ";5C" forward-word
 
 bindkey "\e[3~" delete-char
 WORDCHARS="${WORDCHARS:s#/#}"
-
 # Better history management (acts like vim)
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -67,14 +66,13 @@ alias autoclean="rm -rfv aclocal.m4 autom4te.cache config.* configure depcomp lt
 alias chrome='google-chrome'
 alias freebox='sudo mount -t cifs //mafreebox.freebox.fr/Disque\ dur/  /mnt/freebox/ && cd /mnt/freebox'
 alias sd='mount /dev/mmcblk0'
-alias br="ssh br.i0x.com"
-alias na="ssh na.i0x.com"
 
 #arch
 alias u="sudo pacman -Syu"
 alias i="sudo pacman -S"
 alias s="pacman -Ss"
 alias d="sudo pacman -Rcs"
+alias irc="ssh i0x.me -t 'screen -dr'"
 
 #
 # COLORS DEFINITION
@@ -109,33 +107,17 @@ C_DEF=$'%{\e[0m%}'
 
 git_prompt_info()
 {
-  git_branch=`git branch 2>/dev/null | grep -e '^*' | sed -E 's/^\* (.+)$/(\1) /' | cut -d ' ' -f2`
-  if [[ $git_branch != '' ]];
-  then
-      echo "${C_LGRAY}[${C_RED}"$git_branch"${C_LGRAY}]${C_GREEN1}"
-  fi
+    git_branch=`git branch 2>/dev/null | grep -e '^*' | sed -E 's/^\* (.+)$/(\1) /' | cut -d ' ' -f2`
+    if [[ $git_branch != '' ]];
+    then
+        echo "${C_LGRAY}[${C_RED}"$git_branch"${C_LGRAY}]${C_GREEN1}"
+    fi
 }
 
+autoload colors; colors
 precmd()
 {
-	if [ $? -eq 0 ]; then
-		local c_exit=${C_LBLUE}
-	else
-		local c_exit=${C_LRED}
-	fi
-	PROMPT="${C_LGRAY}[${C_GRAY}%n${C_LGRAY}@${C_RED}%m${C_LGRAY}]${C_LGRAY}%~
- $(git_prompt_info) ${C_LGRAY}(${C_LGRAY}%!${C_LGRAY})${C_RED} ${c_exit}\$${C_DEF} "
-}
-
-#
-# FUNCTIONS
-#
-monitor_file()
-{
-	while true; do
-		echo -n `ls -lh $1`
-		echo -ne "\r"
-		sleep .5
-	done
+    RPROMPT="[%{$fg_bold[red]%}%n%{$fg_bold[blue]%}@%{$fg_no_bold[yellow]%}%M%{$reset_color%}]"
+    PROMPT="[%{$fg_bold[green]%}%~%{$reset_color%}]$(git_prompt_info)%(?.%{$fg_bold[blue]%}.%{$fg_bold[red]%})%% %{$reset_color%}"
 }
 
