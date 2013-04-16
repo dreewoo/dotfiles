@@ -164,7 +164,7 @@ bar {
 }
 
 exec --no-startup-id nm-applet
-exec --no-startup-id pasystray
+exec --no-startup-id pa-applet
 
 #exec i3bar -c conky -f "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*" -dtop --color-bar-fg "#aaaaaa" --color-bar-bg "#262626" --color-active-ws-fg "#ffffff" --color-active-ws-bg "#262626" --color-inactive-ws-fg "#aaaaaa" --color-inactive-ws-bg "#262626" --color-urgent-ws-bg "#ffffff" --color-urgent-ws-fg "#262626" --color-focus-ws-fg "#ffffff" --color-focus-ws-bg "#262626"
 
