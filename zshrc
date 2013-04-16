@@ -64,7 +64,6 @@ alias autoclean="rm -rfv aclocal.m4 autom4te.cache config.* configure depcomp lt
 
 # Personnal
 alias chrome='google-chrome'
-alias freebox='sudo mount -t cifs //mafreebox.freebox.fr/Disque\ dur/  /mnt/freebox/ && cd /mnt/freebox'
 alias sd='mount /dev/mmcblk0'
 
 #arch
