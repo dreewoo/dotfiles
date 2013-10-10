@@ -1,10 +1,18 @@
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'kien/ctrlp.vim'
+Bundle 'altercation/vim-colors-solarized'
+
 syntax on
 filetype plugin indent on
 
-map <F11> :%s/\s\+$//g<CR>
-map <F12> :!ctags -R --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-colorscheme Tomorrow-Night
+colorscheme solarized
 
 set number
 set nocompatible
@@ -33,13 +41,17 @@ highlight WhitespaceEOL ctermbg=red
 match WhitespaceEOL /\s\+$/
 autocmd WinEnter * match WhiteSpaceEOL /\s\+$/
 
+set smartindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+
 set guioptions-=T
 set guioptions-=m
 set guioptions+=c
 set guioptions-=l
 set guioptions-=r
 set guioptions-=b
-
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
-set anti gfn=Ubuntu\ Mono\ 10
+"set anti gfn=Ubuntu\ Mono\ 10
+set anti guifont=Source\ Code\ Pro\ 9
