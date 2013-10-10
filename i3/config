@@ -25,7 +25,7 @@ bindsym $mod+Return exec urxvtc
 bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec dmenu_run -nb '#000000' -nf '#999999'
 
 # change focus
 bindsym $mod+h focus left
@@ -34,13 +34,13 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # alternatively, you can use the cursor keys:
-#bindsym $mod+Left focus left
-#bindsym $mod+Down focus down
-#bindsym $mod+Up focus up
-#bindsym $mod+Right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
-bindsym $mod+Left workspace prev
-bindsym $mod+Right workspace next
+#bindsym $mod+Left workspace prev
+#bindsym $mod+Right workspace next
 
 # move focused window
 bindsym $mod+Shift+H move left
@@ -83,7 +83,7 @@ bindsym $mod+a focus parent
 #bindcode $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1
+bindsym $mod+1 workspace www
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
 bindsym $mod+4 workspace 4
@@ -91,11 +91,12 @@ bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+9 workspace music
+bindsym $mod+0 workspace ext
+#bindsym $mod+0 workspace 10
 
 # move focused container to workspace
-bindsym $mod+Shift+exclam move container to workspace 1
+bindsym $mod+Shift+exclam move container to workspace www
 bindsym $mod+Shift+at move container to workspace 2
 bindsym $mod+Shift+numbersign move container to workspace 3
 bindsym $mod+Shift+dollar move container to workspace 4
@@ -103,8 +104,8 @@ bindsym $mod+Shift+percent move container to workspace 5
 bindsym $mod+Shift+asciicircum move container to workspace 6
 bindsym $mod+Shift+ampersand move container to workspace 7
 bindsym $mod+Shift+asterisk move container to workspace 8
-bindsym $mod+Shift+parenleft move container to workspace 9
-bindsym $mod+Shift+parenright move container to workspace 10 
+bindsym $mod+Shift+parenleft move container to workspace music
+bindsym $mod+Shift+parenright move container to workspace ext
 # reload the configuration file
 bindsym $mod+Shift+C reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -144,27 +145,32 @@ bindsym $mod+r mode "resize"
 new_window 1pixel
 for_window [class="ioquake3"] floating enable
 
+# class                 border  backgr. text    indicator
+client.focused          #002b36 #000000 #ffffff #2e9ef4
+client.focused_inactive #002b36 #000000 #ffffff #484e50
+client.unfocused        #002b36 #000000 #888888 #292d2e
+client.urgent           #2f343a #900000 #ffffff #900000
+
 #bindsym $mod+t border normal
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	position top
-	#mode hide
-        status_command conky
-	colors {
-               background #000000
-               statusline #888888
-
-	       focused_workspace  #ffffff #000000
-               active_workspace   #ffffff #333333
-               inactive_workspace #888888 #000000
-               urgent_workspace   #ffffff #900000
-	}
+    position top
+    #mode hide
+    status_command conky
+    colors {
+        background #000000
+        statusline #888888
+        focused_workspace  #000000 #000000 #ffffff
+        active_workspace   #000000 #333333 #ffffff
+        inactive_workspace #000000 #000000 #888888
+        urgent_workspace   #000000 #900000 #ffffff
+    }
 }
 
 exec --no-startup-id nm-applet
-exec --no-startup-id pa-applet
+#exec --no-startup-id pa-applet
 
 #exec i3bar -c conky -f "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*" -dtop --color-bar-fg "#aaaaaa" --color-bar-bg "#262626" --color-active-ws-fg "#ffffff" --color-active-ws-bg "#262626" --color-inactive-ws-fg "#aaaaaa" --color-inactive-ws-bg "#262626" --color-urgent-ws-bg "#ffffff" --color-urgent-ws-fg "#262626" --color-focus-ws-fg "#ffffff" --color-focus-ws-bg "#262626"
 
