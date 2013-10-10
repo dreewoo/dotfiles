@@ -55,7 +55,8 @@ URxvt*color15:                   S_base3
 !
 
 ! General
-URxvt.font:                 xft:clean:pixelsize=8
+URxvt.font:                 xft:Source Code Pro:regular:size=9
+URxvt.letterSpace:          -2
 URxvt.termName:             rxvt-256color
 
 ! Scroll
@@ -79,10 +80,10 @@ URxvt.keysym.M-Delete:      perl:matcher:list
 URxvt.colorUL:              S_blue
 
 ! Transparency
-URxvt.transparent:          true
-URxvt.shading:              20
-URxvt.background:           rgba:0500/0500/0500/DDDD
-URxvt.depth:                32
+! URxvt.transparent:          true
+! URxvt.shading:              20
+! URxvt.background:           rgba:0500/0500/0500/DDDD
+! URxvt.depth:                32
 
 ! Key compat
 URxvt.keysym.C-Left:        \033[1;5D
