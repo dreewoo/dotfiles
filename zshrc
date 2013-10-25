@@ -49,7 +49,7 @@ export LESS_TERMCAP_se=$'\e[0m'
 export LESS_TERMCAP_so=$'\e[01;44;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[01;32m'
-
+export MAKEFLAGS="-j4"
 
 # ALIASES
 #
@@ -59,6 +59,7 @@ alias l='ls'
 alias ll='ls -l'
 alias la='ls -al'
 alias rm='rm -v'
+alias cp='gcp'
 alias grep='grep --color=always'
 alias autoclean="rm -rfv aclocal.m4 autom4te.cache config.* configure depcomp ltmain.sh Makefile.in"
 
