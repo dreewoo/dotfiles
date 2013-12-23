@@ -55,8 +55,7 @@ URxvt*color15:                   S_base3
 !
 
 ! General
-URxvt.font:                 xft:Source Code Pro:regular:size=9
-URxvt.letterSpace:          -2
+URxvt.font:                 xft:Source Code Pro:regular:pixelsize=12, xft:Inconsolata for Powerline
 URxvt.termName:             rxvt-256color
 
 ! Scroll
