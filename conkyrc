@@ -1,0 +1,69 @@
+use_xft yes
+out_to_x no
+own_window no
+out_to_console yes
+double_buffer no
+background no
+update_interval 1.0
+total_run_times 0
+short_units yes
+if_up_strictness address
+use_spacer left
+override_utf8_locale no
+cpu_avg_samples 2
+
+TEXT
+
+[
+#CPU
+{ "full_text" : "CPU:" , "color" : "\#999999", "separator":false },
+{ "full_text" : "${cpu cpu}% " , "color" : "\#dddddd", "separator":false },
+
+#WLAN:
+${if_up wlan0}
+{ "full_text" : " WLAN:" , "color" : "\#999999", "separator":false },
+{ "full_text" : "↓${downspeed wlan0}" , "color" : "\#0a67a3", "separator":false },
+{ "full_text" : "↑${upspeed wlan0}" , "color" : "\#ff8e00", "separator":false },
+{ "full_text" : " IP:" , "color" : "\#999999", "separator":false },
+{ "full_text" : "${addr wlan0} " , "color" : "\#dddddd", "separator":false },
+${endif}
+
+#ETH:
+${if_up eth0}
+{ "full_text" : " ETH:" , "color" : "\#999999", "separator":false },
+{ "full_text" : "↓${downspeed eth0}" , "color" : "\#0a67a3", "separator":false },
+{ "full_text" : "↑${upspeed eth0}" , "color" : "\#ff8e00", "separator":false },
+{ "full_text" : " IP:" , "color" : "\#999999", "separator":false },
+{ "full_text" : "${addr eth0} " , "color" : "\#dddddd", "separator":false },
+${endif}
+
+#RAM
+{ "full_text" : " RAM:" , "color" : "\#999999", "separator":false },
+{ "full_text" : "$mem/${memmax}" , "color" :
+    ${if_match ${memperc}<90}"\#dddddd"${else}"\#ff0000"${endif}, "separator":false },
+{ "full_text" : "($memperc%)" , "color" : "\#dddddd", "separator":false },
+
+#Volume
+{ "full_text" : " Volume:" , "color" : "\#999999", "separator":false },
+{ "full_text" : "${execi 1 amixer sget Master,0 | egrep -o '([0-9]+%)' | sed ':a;N;$!ba;s/\n/-/g;s/%//g'}" , "color" : "\#dddddd", "separator":false },
+
+#Battery
+{ "full_text" : " Battery: " , "color" : "\#999999", "separator":false },
+{ "full_text" : "${battery_percent BAT0}% " , "color" :
+    ${if_match ${battery_percent}>80}
+        "\#21B56B"
+    ${else} ${if_match ${battery_percent}>60}
+        "\#a8f000"
+    ${else} ${if_match ${battery_percent}>40}
+        "\#ffe900"
+    ${else} ${if_match ${battery_percent}>20}
+        "\#ff7400"
+    ${else}
+        "\#f80012"
+    ${endif}${endif}${endif}${endif}, "separator":false },
+{ "full_text" : "${battery_time BAT0} " , "color" : "\#eeeeee", "separator":false },
+
+#Time
+{ "full_text" : " ${time %a %d.%m.%y} ${time %H:%M:%S} " , "color" : "\#dddddd" }
+
+],

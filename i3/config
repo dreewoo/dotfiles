@@ -160,7 +160,7 @@ hide_edge_borders both
 bar {
     position top
     #mode hide
-    status_command conky
+    status_command $HOME/.i3/conky-i3bar
     colors {
         background #131313
         statusline #888888
