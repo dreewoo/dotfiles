@@ -26,6 +26,7 @@ bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -nb '#000000' -nf '#999999'
+#bindsym $mod+d exec j4-dmenu-desktop -i -nb '#000000' -nf '#999999'
 
 # change focus
 bindsym $mod+h focus left
@@ -50,6 +51,7 @@ bindsym $mod+Shift+L move right
 
 bindsym XF86ScreenSaver exec xtrlock
 bindsym XF86Display exec /home/dreewoo/.xrandr
+bindsym Print exec scrot
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
