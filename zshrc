@@ -1,3 +1,18 @@
+ZSH=/usr/share/oh-my-zsh/
+ZSH_THEME="agnoster"
+DISABLE_AUTO_UPDATE="true"
+plugins=()
+
+function git_prompt_info() {
+ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+}
+
+
+source $ZSH/oh-my-zsh.sh
+
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
 #
 # ZSH OPTS
 #
@@ -105,19 +120,20 @@ C_DEF=$'%{\e[0m%}'
 # PROMPT
 #
 
-git_prompt_info()
-{
-    git_branch=`git branch 2>/dev/null | grep -e '^*' | sed -E 's/^\* (.+)$/(\1) /' | cut -d ' ' -f2`
-    if [[ $git_branch != '' ]];
-    then
-        echo "${C_LGRAY}[${C_RED}"$git_branch"${C_LGRAY}]${C_GREEN1}"
-    fi
-}
-
-autoload colors; colors
-precmd()
-{
-    RPROMPT="[%{$fg_bold[red]%}%n%{$fg_bold[blue]%}@%{$fg_no_bold[yellow]%}%M%{$reset_color%}]"
-    PROMPT="[%{$fg_bold[green]%}%~%{$reset_color%}]$(git_prompt_info)%(?.%{$fg_bold[blue]%}.%{$fg_bold[red]%})%% %{$reset_color%}"
-}
-
+#git_prompt_info()
+#{
+#    git_branch=`git branch 2>/dev/null | grep -e '^*' | sed -E 's/^\* (.+)$/(\1) /' | cut -d ' ' -f2`
+#    if [[ $git_branch != '' ]];
+#    then
+#        echo "${C_LGRAY}[${C_RED}"$git_branch"${C_LGRAY}]${C_GREEN1}"
+#    fi
+#}
+#
+#autoload colors; colors
+#precmd()
+#{
+#    RPROMPT="[%{$fg_bold[red]%}%n%{$fg_bold[blue]%}@%{$fg_no_bold[yellow]%}%M%{$reset_color%}]"
+#    PROMPT="[%{$fg_bold[green]%}%~%{$reset_color%}]$(git_prompt_info)%(?.%{$fg_bold[blue]%}.%{$fg_bold[red]%})%% %{$reset_color%}"
+#}
+#
+export PATH=~/pebble-dev/PebbleSDK-2.0-BETA6/bin:$PATH
