@@ -10,7 +10,7 @@ X:
 
 i3wm:
 	ln -fns ${DOTFILES_DIR}/i3 ${DEST_DIR}/.i3
-	ln -fs ${DOTFILES_DIR}/i3status ${DEST_DIR}/.i3status
+	ln -fs ${DOTFILES_DIR}/i3status.conf ${DEST_DIR}/.i3status.conf
 	ln -fs ${DOTFILES_DIR}/conkyrc ${DEST_DIR}/.conkyrc
 
 zsh:

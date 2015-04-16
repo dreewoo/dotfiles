@@ -1,1 +1,0 @@
-/home/dreewoo/git/vim-slim/syntax/slim.vim

@@ -26,6 +26,7 @@ bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run -nb '#000000' -nf '#999999'
+bindsym $mod+Control+d exec passmenu -nb '#000000' -nf '#999999'
 #bindsym $mod+d exec j4-dmenu-desktop -i -nb '#000000' -nf '#999999'
 
 # change focus
@@ -51,7 +52,8 @@ bindsym $mod+Shift+L move right
 
 bindsym XF86ScreenSaver exec xtrlock
 bindsym XF86Display exec /home/dreewoo/.xrandr
-bindsym Print exec scrot
+bindsym $mod+Print exec scrot
+bindsym $mod+Control+space exec synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -85,30 +87,39 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindcode $mod+d focus child
 
-# switch to workspace
-bindsym $mod+1 workspace www
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace music
-bindsym $mod+0 workspace ext
-#bindsym $mod+0 workspace 10
+set $w1   WEB
+set $w2 2: 
+set $w3 3: 
+set $w4 4: 
+set $w5 5: 
+set $w6 6: 
+set $w7 7: 
+set $w8 8: 
+set $w9   MEDIA
+set $w0   IRC
+
+bindsym $mod+1 workspace $w1
+bindsym $mod+2 workspace $w2
+bindsym $mod+3 workspace $w3
+bindsym $mod+4 workspace $w4
+bindsym $mod+5 workspace $w5
+bindsym $mod+6 workspace $w6
+bindsym $mod+7 workspace $w7
+bindsym $mod+8 workspace $w8
+bindsym $mod+9 workspace $w9
+bindsym $mod+0 workspace $w0
 
 # move focused container to workspace
-bindsym $mod+Shift+exclam move container to workspace www
-bindsym $mod+Shift+at move container to workspace 2
-bindsym $mod+Shift+numbersign move container to workspace 3
-bindsym $mod+Shift+dollar move container to workspace 4
-bindsym $mod+Shift+percent move container to workspace 5
-bindsym $mod+Shift+asciicircum move container to workspace 6
-bindsym $mod+Shift+ampersand move container to workspace 7
-bindsym $mod+Shift+asterisk move container to workspace 8
-bindsym $mod+Shift+parenleft move container to workspace music
-bindsym $mod+Shift+parenright move container to workspace ext
+bindsym $mod+Shift+exclam move container to workspace $w1
+bindsym $mod+Shift+at move container to workspace $w2
+bindsym $mod+Shift+numbersign move container to workspace $w3
+bindsym $mod+Shift+dollar move container to workspace $w4
+bindsym $mod+Shift+percent move container to workspace $w5
+bindsym $mod+Shift+asciicircum move container to workspace $w6
+bindsym $mod+Shift+ampersand move container to workspace $w7
+bindsym $mod+Shift+asterisk move container to workspace $w8
+bindsym $mod+Shift+parenleft move container to workspace $w9
+bindsym $mod+Shift+parenright move container to workspace $w0
 # reload the configuration file
 bindsym $mod+Shift+C reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -147,6 +158,15 @@ bindsym $mod+r mode "resize"
 #bindsym $mod+t border toggle
 new_window 1pixel
 for_window [class="ioquake3"] floating enable
+for_window [class="(?i)chromium"] floating enable
+for_window [class="(?i)pavucontrol"] floating enable
+for_window [class="(?i)mpv"] floating enable
+for_window [class="(?i)uberwriter"] floating enable
+for_window [class="(?i)steam"] floating enable
+floating_maximum_size 1550 x 850
+for_window [window_role="pop-up"] floating enable
+assign [class="^mpv$"] → $w9
+assign [title="irc"] → $w0
 
 # class                 border  backgr. text    indicator
 client.focused          #002b36 #131313 #ffffff #2e9ef4
@@ -157,13 +177,19 @@ client.urgent           #2f343a #900000 #ffffff #900000
 hide_edge_borders both
 #bindsym $mod+t border normal
 
+bindsym $mod+m move scratchpad
+bindsym $mod+o scratchpad show
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-    position top
+    font pango:Sauce Code Powerline, FontAwesome 9
+    position bottom
     #mode hide
-    status_command $HOME/.i3/conky-i3bar
+#    status_command $HOME/.i3/conky-i3bar
+    status_command i3status
     colors {
+        separator  #666666
         background #131313
         statusline #888888
         focused_workspace  #131313 #131313 #ffffff
@@ -174,6 +200,8 @@ bar {
 }
 
 exec --no-startup-id nm-applet
+exec --no-startup-id udiskie -s
+#exec ntimed-client -t /tmp/ntimed.trace 0.fr.pool.ntp.org 1.fr.pool.ntp.org &
 #exec --no-startup-id pa-applet
 
 #exec i3bar -c conky -f "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*" -dtop --color-bar-fg "#aaaaaa" --color-bar-bg "#262626" --color-active-ws-fg "#ffffff" --color-active-ws-bg "#262626" --color-inactive-ws-fg "#aaaaaa" --color-inactive-ws-bg "#262626" --color-urgent-ws-bg "#ffffff" --color-urgent-ws-fg "#262626" --color-focus-ws-fg "#ffffff" --color-focus-ws-bg "#262626"

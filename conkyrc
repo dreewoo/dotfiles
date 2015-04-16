@@ -21,11 +21,10 @@ TEXT
 
 #WLAN:
 ${if_up wlan0}
-{ "full_text" : " WLAN:" , "color" : "\#999999", "separator":false },
+{ "full_text" : " " , "color" : "\#999999", "separator":false },
+{ "full_text" : "${addr wlan0} " , "color" : "\#dddddd", "separator":false },
 { "full_text" : "↓${downspeed wlan0}" , "color" : "\#0a67a3", "separator":false },
 { "full_text" : "↑${upspeed wlan0}" , "color" : "\#ff8e00", "separator":false },
-{ "full_text" : " IP:" , "color" : "\#999999", "separator":false },
-{ "full_text" : "${addr wlan0} " , "color" : "\#dddddd", "separator":false },
 ${endif}
 
 #ETH:
@@ -44,11 +43,11 @@ ${endif}
 { "full_text" : "($memperc%)" , "color" : "\#dddddd", "separator":false },
 
 #Volume
-{ "full_text" : " Volume:" , "color" : "\#999999", "separator":false },
+{ "full_text" : " " , "color" : "\#999999", "separator":false },
 { "full_text" : "${execi 1 amixer sget Master,0 | egrep -o '([0-9]+%)' | sed ':a;N;$!ba;s/\n/-/g;s/%//g'}" , "color" : "\#dddddd", "separator":false },
 
 #Battery
-{ "full_text" : " Battery: " , "color" : "\#999999", "separator":false },
+{ "full_text" : " " , "color" : "\#999999", "separator":false },
 { "full_text" : "${battery_percent BAT0}% " , "color" :
     ${if_match ${battery_percent}>80}
         "\#21B56B"

@@ -1,12 +1,14 @@
 ZSH=/usr/share/oh-my-zsh/
-ZSH_THEME="agnoster"
+#ZSH_THEME="agnoster"
+#ZSH_THEME="nicoulaj"
+ZSH_THEME="pure"
 DISABLE_AUTO_UPDATE="true"
 plugins=()
 
-function git_prompt_info() {
-ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-}
+#function git_prompt_info() {
+#ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+#echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+#}
 
 
 source $ZSH/oh-my-zsh.sh
@@ -87,7 +89,7 @@ alias u="sudo pacman -Syu"
 alias i="sudo pacman -S"
 alias s="pacman -Ss"
 alias d="sudo pacman -Rcs"
-alias irc="ssh i0x.me -t 'screen -dr'"
+alias irc="mosh i0x.me --ssh='ssh -p 54322' -- screen -dr irc"
 
 #
 # COLORS DEFINITION
@@ -137,3 +139,10 @@ C_DEF=$'%{\e[0m%}'
 #}
 #
 export PATH=~/pebble-dev/PebbleSDK-2.0-BETA6/bin:$PATH
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/dreewoo/.zsh-history-substring-search/zsh-history-substring-search.zsh
+
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
+ #. /usr/share/zsh/site-contrib/powerline.zsh

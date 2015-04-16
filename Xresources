@@ -55,7 +55,8 @@ URxvt*color15:                   S_base3
 !
 
 ! General
-URxvt.font:                 xft:Source Code Pro:regular:pixelsize=12, xft:Inconsolata for Powerline
+!URxvt.font:                 xft:Icons, xft:Source Code Pro:regular:pixelsize=12
+URxvt.font:                 xft:Source Code Pro:regular:pixelsize=12, xft:Sauce Code Powerline
 URxvt.termName:             rxvt-256color
 
 ! Scroll
@@ -73,10 +74,26 @@ URxvt.cursorBlink:          true
 ! URI
 URxvt.perl-ext-common:      default,matcher,resize-font
 URxvt.matcher.button:       1
-URxvt.url-launcher:         chromium
+
+! Open open.spotify links in spotify app
+URxvt.matcher.pattern.0:    \\bhttp:\/\/open\.(spotify)\.com\/([\\w]+)\/([\\w]+)
+URxvt.matcher.launcher.0:   spotify -uri $1:$2:$3
+
+! Open youtube links in mpv
+URxvt.matcher.pattern.1:    \\b(http|https):\/\/www\.youtube\.com/watch\\?v=([\\w-]+)
+URxvt.matcher.launcher.1:   mpv
+
+! Open other links in chromium
+URxvt.matcher.pattern.2:    \\b(http|https|ftp):\/\/(?!www\\.youtube.*)(?!open\\.spotify.*)[\\w\\-\\@;\\/?:&=%\\$.+!*\x27,~#]+
+URxvt.matcher.launcher.2:   chromium
+#URxvt.matcher.launcher.2:   firefox
+
+URxvt.matcher.pattern.3:    \\b(spotify:[\\w:]+)
+URxvt.matcher.launcher.3:   spotify -uri $1
+
 URxvt.keysym.C-Delete:      perl:matcher:last
 URxvt.keysym.M-Delete:      perl:matcher:list
-URxvt.colorUL:              S_blue
+URxvt.colorUL:              S_base0
 
 ! Transparency
 ! URxvt.transparent:          true

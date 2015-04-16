@@ -1,17 +1,23 @@
 [user]
-	name = Jocelyn De La Rosa
-	email = dreewoo@gmail.com
+    name = Jocelyn De La Rosa
+    email = dreewoo@gmail.com
 [color]
-        diff = auto
-        branch = auto
-        status = auto
+    ui = auto
+[core]
+#    whitespace = -trailing-space
+#    excludesfile = /home/dreewoo/.gitignore_global
+	editor = vim
 [alias]
-	co = checkout
-	br = branch
-	st = status
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+    co = checkout
+    br = branch
+    st = status
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+#    lg = log --graph --pretty=tformat:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%an %ar)%Creset'
+#    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 
+#[http]
+#    sslVerify = false
 [push]
 	default = simple
-[http]
-	sslVerify = false
+[pull]
+    rebase = true
