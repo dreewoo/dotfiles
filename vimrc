@@ -4,13 +4,10 @@ filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#begin()
 
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/unite-outline'
-
 Plugin 'gmarik/vundle'
-"Plugin 'kien/ctrlp.vim'
+
+Plugin 'kien/ctrlp.vim'
+Plugin 'FelikZ/ctrlp-py-matcher'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'scrooloose/nerdcommenter'
@@ -20,10 +17,18 @@ Plugin 'terryma/vim-smooth-scroll'
 Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
 Plugin 'bling/vim-airline'
+Plugin 'jeaye/color_coded'
+Plugin 'jamessan/vim-gnupg'
+Plugin 'scrooloose/nerdtree'
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'terryma/vim-expand-region'
+Plugin 'kien/rainbow_parentheses.vim'
 
 call vundle#end()
 
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
 
 syntax on
 filetype plugin indent on
@@ -44,7 +49,6 @@ set wildmenu
 set ttyfast
 set incsearch
 set hlsearch
-set mouse=a
 set scrolloff=10
 set list
 set lcs=tab:▸·
@@ -55,7 +59,10 @@ set formatoptions=qrn1
 set colorcolumn=85
 set laststatus=2
 
-let mapleader=","
+let mapleader="\<space>"
+nnoremap <leader><space> :noh<CR>
+nnoremap ; :CtrlPBuffer<CR>
+
 nnoremap j gj
 nnoremap k gk
 
@@ -74,117 +81,43 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-"noremap <F11> :set list!<CR>
-"
+
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+"Smooth-scroll
 noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
 noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-"
-"===============================================================================
-"" Unite
-"===============================================================================
 
-"" Use the fuzzy matcher for everything
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"Raimbow Parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
-" Set up some custom ignores
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-      \ 'ignore_pattern', join([
-      \ '\.git/',
-      \ 'build/',
-      \ 'regress_final/',
-      \ 'regress/',
-      \ 'tmp/',
-      \ 'pgsql/',
-      \ 'libexec/',
-      \ 'share/',
-      \ 'lib/',
-      \ 'daemons/memcached/',
-      \ 'daemons/redis/',
-      \ 'daemons/trams/tests/',
-      \ 'util/',
-      \ 'doc/',
-      \ 'modules/',
-      \ 'logs/',
-      \ 'test_profies/',
-      \ 'test_db/',
-      \ 'www/',
-      \ 'rpm/',
-      \ 'thrift_api/',
-      \ 'python/',
-      \ 'pgsql_slave/',
-      \ '.pyc',
-      \ ], '\|'))
-
-nnoremap [unite] <Nop>
-nmap <space> [unite]
-
-
-" General fuzzy search
-nnoremap <silent> [unite]<space> :<C-u>Unite
-      \ -start-insert -buffer-name=files file_rec/async<CR>
-
-" Quick registers
-nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
-
-" Quick buffer and mru
-nmap <c-p> [unite]u
-nnoremap <silent> [unite]u :<C-u>Unite -buffer-name=buffers file_mru buffer<CR>
-
-" Quick yank history
-nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<CR>
-
-" Quick file search
-nnoremap <silent> [unite]f :<C-u>Unite -buffer-name=files file_rec/async file/new<CR>
-
-" Quick MRU search
-nnoremap <silent> [unite]m :<C-u>Unite -buffer-name=mru file_mru<CR>
-
-autocmd FileType unite call s:unite_settings()
-function! s:unite_settings()
-  nmap <buffer> <ESC> <Plug>(unite_exit)
-  " nmap <buffer> <ESC> <Plug>(unite_insert_enter)
-  imap <buffer> <ESC> <Plug>(unite_exit)
-  " imap <buffer> <c-j> <Plug>(unite_select_next_line)
-  imap <buffer> <c-j> <Plug>(unite_insert_leave)
-  nmap <buffer> <c-j> <Plug>(unite_loop_cursor_down)
-  nmap <buffer> <c-k> <Plug>(unite_loop_cursor_up)
-  nmap <buffer> <tab> <Plug>(unite_loop_cursor_down)
-  nmap <buffer> <s-tab> <Plug>(unite_loop_cursor_up)
-  imap <buffer> <c-a> <Plug>(unite_choose_action)
-  imap <buffer> <Tab> <Plug>(unite_insert_leave)
-  imap <buffer> jj <Plug>(unite_insert_leave)
-  imap <buffer> <C-w> <Plug>(unite_delete_backward_word)
-  imap <buffer> <C-u> <Plug>(unite_delete_backward_path)
-  imap <buffer> '     <Plug>(unite_quick_match_default_action)
-  nmap <buffer> '     <Plug>(unite_quick_match_default_action)
-  nmap <buffer> <C-r> <Plug>(unite_redraw)
-  imap <buffer> <C-r> <Plug>(unite_redraw)
-  inoremap <silent><buffer><expr> <C-s> unite#do_action('split')
-  nnoremap <silent><buffer><expr> <C-s> unite#do_action('split')
-  inoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-  nnoremap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
-
-endfunction
-
-let g:unite_data_directory = "~/.unite"
-
-let g:unite_split_rule = "bot"
-let g:unite_source_file_mru_filename_format = ':~:.'
-let g:unite_source_file_mru_time_format = ''
-
-let g:unite_source_rec_max_cache_files = 99999
-
-"===============================================================================
-
-"set cursorline
-"hi CursorLine term=none cterm=none ctermbg=0
-"hi CursorColumn term=none cterm=none ctermbg=0
+"CtrlP
+nnoremap ; :CtrlPBuffer<CR>
+nnoremap <Leader>p :CtrlP<CR>
+let g:ctrlp_max_file = 0
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ -g ""'
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 
 highlight WhitespaceEOL ctermbg=red
 match WhitespaceEOL /\s\+$/
 autocmd WinEnter * match WhiteSpaceEOL /\s\+$/
+
+"expand-region
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 set smartindent
 set tabstop=4
@@ -204,6 +137,7 @@ set guioptions-=r
 set guioptions-=L
 set guioptions-=b
 
+set mouse=a
 set anti guifont=Sauce\ Code\ Powerline\ 9
 "set anti guifont=Input\ Sans\ Regular\ 9
 
@@ -212,5 +146,7 @@ if version >= 702
 endif
 
 set tags=.git/tags
+
+autocmd Filetype gitcommit setlocal spell textwidth=72
 
 au BufRead /tmp/mutt-* set tw=72

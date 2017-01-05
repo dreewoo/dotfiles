@@ -1,11 +1,11 @@
 #!/bin/bash
 
-IN="LVDS1"
-EXT="HDMI1"
+#IN="eDP1"
+#EXT="HDMI1"
 
-if (xrandr | grep "$EXT disconnected"); then
-    xrandr --output $EXT --off
-else
-    xrandr --output $IN --auto --primary --output $EXT --auto --right-of $IN
-fi
-sh $HOME/.fehbg
+#if (xrandr | grep "$EXT connected"); then
+    #xrandr --output $IN --auto --primary --output $EXT --auto --right-of $IN
+##else
+    ##xrandr --output $EXT --off
+#fi
+#sh $HOME/.fehbg

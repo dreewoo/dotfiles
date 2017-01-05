@@ -1,9 +1,10 @@
 [user]
     name = Jocelyn De La Rosa
-    email = dreewoo@gmail.com
+    email = jocelyn.delarosa@scmfrance.fr
 [color]
     ui = auto
 [core]
+    pager = zsh -lc 'diff-highlight | less -r' -
 #    whitespace = -trailing-space
 #    excludesfile = /home/dreewoo/.gitignore_global
 	editor = vim
@@ -21,3 +22,13 @@
 	default = simple
 [pull]
     rebase = true
+[init]
+	templatedir = ~/.git_template
+
+[color "diff-highlight"]
+   oldNormal = "red bold"
+   oldHighlight = "red bold 52"
+   newNormal = "green bold"
+   newHighlight = "green bold 22"
+[gitreview]
+	username = jocelyn.delarosa
