@@ -1,35 +1,22 @@
-ZSH=/usr/share/oh-my-zsh/
-#ZSH_THEME="agnoster"
-#ZSH_THEME="nicoulaj"
-ZSH_THEME="pure"
-DISABLE_AUTO_UPDATE="true"
-plugins=()
-
-#function git_prompt_info() {
-#ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-#echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-#}
-
-
-source $ZSH/oh-my-zsh.sh
-
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 #
-# ZSH OPTS
+# Executes commands at the start of an interactive session.
 #
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+
+
 setopt appendhistory
 setopt histignorealldups
 setopt hash_list_all
 setopt transient_rprompt
-
-HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
-autoload -Uz compinit; compinit
-zstyle ':completion:*' menu select
-zstyle ':completion:*' list-colors "${(s.:.)LSCOLORS}"
-
 #
 # KEY BINDING
 #
@@ -76,9 +63,15 @@ alias l='ls'
 alias ll='ls -l'
 alias la='ls -al'
 alias rm='rm -v'
-alias cp='gcp'
+#alias cp='gcp'
 alias grep='grep --color=always'
 alias autoclean="rm -rfv aclocal.m4 autom4te.cache config.* configure depcomp ltmain.sh Makefile.in"
+alias fuck='sudo $(fc -nl -1)'
+alias start='sudo systemctl start'
+alias restart='sudo systemctl restart'
+alias reload='sudo systemctl reload'
+alias status='sudo systemctl status'
+alias stop='sudo systemctl stop'
 
 # Personnal
 alias chrome='google-chrome'
@@ -89,60 +82,32 @@ alias u="sudo pacman -Syu"
 alias i="sudo pacman -S"
 alias s="pacman -Ss"
 alias d="sudo pacman -Rcs"
-alias irc="mosh i0x.me --ssh='ssh -p 54322' -- screen -dr irc"
+alias irc="mosh dreewoo@i0x.me --ssh='ssh -p 54322' -- screen -dr irc"
+alias vim=nvim
+alias dr="docker run"
 
-#
-# COLORS DEFINITION
-#
-# Normal
-C_BLACK=$'%{\e[0;30m%}'
-C_RED=$'%{\e[0;31m%}'
-C_GREEN=$'%{\e[0;32m%}'
-C_BROWN=$'%{\e[0;33m%}'
-C_BLUE=$'%{\e[0;34m%}'
-C_PURPLE=$'%{\e[0;35m%}'
-C_CYAN=$'%{\e[0;36m%}'
-C_GRAY=$'%{\e[1;30m%}'
-C_YELLOW=$'%{\e[1;33m%}'
-C_WHITE=$'%{\e[1;37m%}'
-# Light
-C_LGRAY=$'%{\e[0;37m%}'
-C_BLUE=$'%{\e[1;34m%}'
-C_BLUE1=$'%{\e[0;34m%}'
-C_GREEN=$'%{\e[2;32m%}'
-C_GREEN1=$'%{\e[0;32m%}'
-C_LCYAN=$'%{\e[1;36m%}'
-C_RED=$'%{\e[0;31m%}'
-C_RED1=$'%{\e[1;31m%}'
-C_LPURPLE=$'%{\e[1;35m%}'
-# Default
-C_DEF=$'%{\e[0m%}'
+alias lbc='docker run -ti --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(git rev-parse --show-toplevel):$(git rev-parse --show-toplevel):ro -w $(git rev-parse --show-toplevel) -e TOPDIR=$(git rev-parse --show-toplevel) docker.repo.bon-coin.net/tools/lbc'
 
-#
-# PROMPT
-#
+function strip_diff_leading_symbols(){
+   color_code_regex="(\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K])"
 
-#git_prompt_info()
-#{
-#    git_branch=`git branch 2>/dev/null | grep -e '^*' | sed -E 's/^\* (.+)$/(\1) /' | cut -d ' ' -f2`
-#    if [[ $git_branch != '' ]];
-#    then
-#        echo "${C_LGRAY}[${C_RED}"$git_branch"${C_LGRAY}]${C_GREEN1}"
-#    fi
-#}
-#
-#autoload colors; colors
-#precmd()
-#{
-#    RPROMPT="[%{$fg_bold[red]%}%n%{$fg_bold[blue]%}@%{$fg_no_bold[yellow]%}%M%{$reset_color%}]"
-#    PROMPT="[%{$fg_bold[green]%}%~%{$reset_color%}]$(git_prompt_info)%(?.%{$fg_bold[blue]%}.%{$fg_bold[red]%})%% %{$reset_color%}"
-#}
-#
-export PATH=~/pebble-dev/PebbleSDK-2.0-BETA6/bin:$PATH
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /home/dreewoo/.zsh-history-substring-search/zsh-history-substring-search.zsh
+   # simplify the unified patch diff header
+   sed -r "s/^($color_code_regex)diff --git .*$//g" | \
+       sed -r "s/^($color_code_regex)index .*$/\n\1$(rule)/g" | \
+       sed -r "s/^($color_code_regex)\+\+\+(.*)$/\1+++\5\n\1$(rule)\x1B\[m/g" |\
 
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
- #. /usr/share/zsh/site-contrib/powerline.zsh
+   # actually strips the leading symbols
+       sed -r "s/^($color_code_regex)[\+\-]/\1 /g"
+}
+
+## Print a horizontal rule
+rule () {
+   printf "%$(tput cols)s\n"|tr " " "─"
+}
+
+echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2>&1
+
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# added by travis gem
+[ -f /home/jocelyn/.travis/travis.sh ] && source /home/jocelyn/.travis/travis.sh
