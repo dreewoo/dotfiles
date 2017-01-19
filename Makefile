@@ -14,6 +14,7 @@ i3wm:
 
 zsh:
 	ln -fs ${DOTFILES_DIR}/zshrc ${DEST_DIR}/.zshrc
+	ln -fs ${DOTFILES_DIR}/zpreztorc ${DEST_DIR}/.zpreztorc
 
 vimfiles:
 	ln -fs ${DOTFILES_DIR}/vimrc ${DEST_DIR}/.vimrc
