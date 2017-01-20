@@ -1,11 +1,35 @@
 #!/bin/bash
 
-#IN="eDP1"
-#EXT="HDMI1"
+export DISPLAY=:0.0
 
-#if (xrandr | grep "$EXT connected"); then
-    #xrandr --output $IN --auto --primary --output $EXT --auto --right-of $IN
-##else
-    ##xrandr --output $EXT --off
-#fi
-#sh $HOME/.fehbg
+mode="--right-of"
+
+echo $1 >> /tmp/toto
+if [ "$1" == "--right-of" ] || [ "$1" == "--left-of" ] || [ "$1" == "--same-as" ] || [ "$1" == "--off" ]; then
+    mode=$1;
+fi
+
+function connect(){
+xrandr --output $1 --auto $mode $2
+}
+
+function disconnect(){
+xrandr --output $1 --off
+}
+
+cur=eDP1
+for out in "DP1-2" "DP1-1" "HDMI1" "HDMI2"; do
+    if [ "$(xrandr | grep "$out connected")" != "" ] && [ "$mode" != "--off" ]; then
+        connect $out $cur;
+        cur=$out;
+    else
+        disconnect $out;
+    fi
+done;
+
+sh .fehbg
+
+xset r rate 300 15
+setxkbmap -option ctrl:nocaps
+setxkbmap -option compose:ralt
+
