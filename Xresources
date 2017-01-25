@@ -56,15 +56,18 @@ URxvt.intensityStyles:           false
 !
 
 ! General
-!URxvt.font:                 xft:Sauce Code Powerline:regular:pixelsize=10
-!URxvt.font:                 xft:Source Code Pro for Powerline:regular:pixelsize=12
+!URxvt.font:                 xft:Sauce Code Powerline:regular:pixelsize=10, \
+!                            xft:Hack:regular:pixelsize=12
 
-URxvt.font:                 xft:Hack:regular:pixelsize=12
+URxvt.font:                 xft:Hack:regular:pixelsize=12, \
+                            xft:Sauce Code Powerline:regular:pixelsize=12, \
+                            -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 !URxvt.font:                 xft:Inconsolata for Powerline:pixelsize=13
 
-!URxvt.font:                 xft:Fira Mono for Powerline:style:pixelsize=12
+!URxvt.font:                 xft:Fira Mono:regular:pixelsize=12
 !URxvt.font:                 xft:Source Code Pro:regular:pixelsize=12, xft:Sauce Code Powerline
 URxvt.termName:             rxvt-256color
+URxvt.imLocale:             en_US.utf8
 
 ! Scroll
 URxvt.saveLines:            1024

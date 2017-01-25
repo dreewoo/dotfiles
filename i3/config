@@ -25,8 +25,8 @@ bindsym $mod+Return exec urxvtc
 bindsym $mod+Shift+Q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -nb '#000000' -nf '#999999'
-bindsym $mod+Control+d exec passmenu -nb '#000000' -nf '#999999'
+bindsym $mod+d exec dmenu_run -fn 'Hack-11' -nb '#000000' -nf '#999999'
+bindsym $mod+Control+d exec passmenu -fn 'Hack-11' -nb '#000000' -nf '#999999'
 #bindsym $mod+d exec j4-dmenu-desktop -i -nb '#000000' -nf '#999999'
 
 # change focus
@@ -46,6 +46,8 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 2
 bindsym XF86AudioRaiseVolume exec amixer -q -D pulse set Master 5%+ unmute%
 bindsym XF86AudioLowerVolume exec amixer -q -D pulse set Master 5%- unmute
 bindsym XF86AudioMute exec amixer -q -D pulse set Master toggle
+
+bindsym XF86Explorer exec nautilus
 
 #bindsym $mod+Left workspace prev
 #bindsym $mod+Right workspace next
@@ -118,8 +120,8 @@ bindsym $mod+0 workspace $w0
 bindsym $mod+Control+Right move workspace to output right
 bindsym $mod+Control+Left move workspace to output left
 
-gaps inner 4
-gaps outer 2
+#gaps inner 4
+#gaps outer 2
 
 # move focused container to workspace
 bindsym $mod+Shift+exclam move container to workspace $w1
@@ -189,7 +191,8 @@ mode "$mode_xrandr" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym Print mode "$mode_xrandr"
+bindsym XF86Display mode "$mode_xrandr"
+
 
 bindsym $mod+r mode "resize"
 

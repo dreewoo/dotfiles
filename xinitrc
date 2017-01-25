@@ -15,11 +15,11 @@ setxkbmap -option ctrl:nocaps
 setxkbmap -option compose:ralt
 xset r rate 300 15
 
+export LC_ALL=en_US.UTF-8
+
+
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-export PATH=/home/jocelyn/bin:$PATH
-
 sh .xrandr
-pulseaudio --start &
 
 exec i3
