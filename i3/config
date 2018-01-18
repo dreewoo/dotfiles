@@ -43,9 +43,10 @@ bindsym $mod+Right focus right
 
 bindsym XF86MonBrightnessDown exec xbacklight -dec 2
 bindsym XF86MonBrightnessUp exec xbacklight -inc 2
-bindsym XF86AudioRaiseVolume exec amixer -q -D pulse set Master 5%+ unmute%
-bindsym XF86AudioLowerVolume exec amixer -q -D pulse set Master 5%- unmute
-bindsym XF86AudioMute exec amixer -q -D pulse set Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute 1 toggle
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
 bindsym XF86Explorer exec nautilus
 
@@ -60,7 +61,7 @@ bindsym $mod+Shift+L move right
 
 bindsym $mod+Print exec scrot
 bindsym XF86TouchpadToggle exec synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')
-bindsym $mod+Control+l exec i3lock -f
+bindsym $mod+Control+p exec i3lock -f
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -119,6 +120,8 @@ bindsym $mod+0 workspace $w0
 
 bindsym $mod+Control+Right move workspace to output right
 bindsym $mod+Control+Left move workspace to output left
+bindsym $mod+Control+l move workspace to output right
+bindsym $mod+Control+h move workspace to output left
 
 #gaps inner 4
 #gaps outer 2
@@ -210,6 +213,7 @@ for_window [class="(?i)uberwriter"] floating enable
 for_window [class="(?i)steam"] floating enable
 for_window [class="notify"] floating enable
 for_window [window_role="pop-up"] floating enable
+for_window [class="(?i)pinentry"] floating enable
 
 assign [class="^mpv$"] → $w9
 assign [title="irc"] → $w0

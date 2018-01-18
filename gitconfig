@@ -1,6 +1,7 @@
 [user]
     name = Jocelyn De La Rosa
-    email = jocelyn.delarosa@scmfrance.fr
+    email = jocelyn.delarosa@schibsted.com
+	signingkey = BDF21DEAE869B4B6
 [color]
     ui = auto
 [core]
@@ -32,3 +33,5 @@
    newHighlight = "green bold 22"
 [gitreview]
 	username = jocelyn.delarosa
+[commit]
+    gpgsign = false

@@ -11,15 +11,15 @@ setopt transient_rprompt
 #
 # KEY BINDING
 #
-bindkey -e
+#bindkey -e
 # emacs
 #bindkey "^[Oc" forward-word
 #bindkey "^[Od" backward-word
-bindkey "^[[7~" beginning-of-line
-bindkey "^[[8~" end-of-line
+#bindkey "^[[7~" beginning-of-line
+#bindkey "^[[8~" end-of-line
 # vim
-bindkey ";5D" backward-word
-bindkey ";5C" forward-word
+#bindkey ";5D" backward-word
+#bindkey ";5C" forward-word
 #bindkey "\e[H" beginning-of-line
 #bindkey "\e[F" end-of-line
 
@@ -89,3 +89,5 @@ echo "UPDATESTARTUPTTY" | gpg-connect-agent > /dev/null 2>&1
 
 # added by travis gem
 [ -f /home/jocelyn/.travis/travis.sh ] && source /home/jocelyn/.travis/travis.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

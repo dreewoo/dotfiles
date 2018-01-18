@@ -18,8 +18,10 @@ function disconnect(){
 xrandr --output $1 --off
 }
 
-cur=eDP1
-for out in "HDMI1" "HDMI2" "DP1" "DP2"; do
+#cur=eDP1
+#for out in "HDMI1" "HDMI2" "DP1" "DP2"; do
+cur=eDP-1
+for out in "HDMI-1" "HDMI-2" "DP-1" "DP-2"; do
     if [ "$(xrandr | grep "$out connected")" != "" ] && [ "$mode" != "--off" ]; then
         connect $out $cur;
         cur=$out;
