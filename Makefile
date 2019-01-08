@@ -9,9 +9,8 @@ X:
 	ln -fs ${DOTFILES_DIR}/xrandr ${DEST_DIR}/.xrandr
 
 i3wm:
-	ln -fns ${DOTFILES_DIR}/i3 ${DEST_DIR}/.i3
-	ln -fs ${DOTFILES_DIR}/i3status.conf ${DEST_DIR}/.i3status.conf
-	ln -fs ${DOTFILES_DIR}/conkyrc ${DEST_DIR}/.conkyrc
+	ln -fns ${DOTFILES_DIR}/i3 ${DEST_DIR}/.config/i3
+	ln -fs ${DOTFILES_DIR}/i3status ${DEST_DIR}/.config/i3status
 
 zsh:
 	ln -fs ${DOTFILES_DIR}/zshrc ${DEST_DIR}/.zshrc

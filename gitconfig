@@ -5,7 +5,7 @@
 [color]
     ui = auto
 [core]
-    pager = zsh -lc '~/bin/diff-highlight | less -r' -
+    #pager = zsh -lc '~/bin/diff-highlight | less -r' -
 #    whitespace = -trailing-space
 #    excludesfile = /home/dreewoo/.gitignore_global
 	editor = vim

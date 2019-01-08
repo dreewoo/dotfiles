@@ -50,6 +50,17 @@
 *color14:                   S_base1
 *color15:                   S_base3
 
+!
+! HiDPI settings
+!
+Xft.dpi:                    	180
+Xft.autohinti: 			0
+Xft.lcdfilter:  		lcddefault
+Xft.hintstyle:  		hintfull
+Xft.hinting: 			1
+Xft.antialias: 			1
+Xft.rgba: 			rgb
+
 URxvt.intensityStyles:           false
 !
 ! URxvt
@@ -59,8 +70,8 @@ URxvt.intensityStyles:           false
 !URxvt.font:                 xft:Sauce Code Powerline:regular:pixelsize=10, \
 !                            xft:Hack:regular:pixelsize=12
 
-URxvt.font:                 xft:Hack:regular:pixelsize=12, \
-                            xft:Sauce Code Powerline:regular:pixelsize=12, \
+URxvt.font:                 xft:Hack:regular:pixelsize=22, \
+                            xft:Sauce Code Powerline:regular:pixelsize=22, \
                             -*-unifont-*-*-*-*-*-*-*-*-*-*-*-*
 !URxvt.font:                 xft:Inconsolata for Powerline:pixelsize=13
 
@@ -84,22 +95,23 @@ URxvt.cursorBlink:          true
 ! URI
 URxvt.perl-ext-common:      default,matcher,resize-font
 URxvt.matcher.button:       1
+URxvt.matcher.launcher.0:   chromium
 
 ! Open open.spotify links in spotify app
-URxvt.matcher.pattern.0:    \\bhttp:\/\/open\.(spotify)\.com\/([\\w]+)\/([\\w]+)
-URxvt.matcher.launcher.0:   spotify -uri=$1:$2:$3
-
-! Open youtube links in mpv!
-URxvt.matcher.pattern.1:    \\b(http|https):\/\/www\.youtube\.com/watch\\?v=([\\w-&=]+)
-URxvt.matcher.launcher.1:   mpv
-
-! Open other links in chromium
-URxvt.matcher.pattern.2:    \\b(http|https|ftp):\/\/(?!www\\.youtube.*)(?!open\\.spotify.*)[\\w\\-\\@;\\/?:&=%\\$.+!*\x27,~#]+
-URxvt.matcher.launcher.2:   chromium
-! URxvt.matcher.launcher.2:   firefox
-
-URxvt.matcher.pattern.3:    \\b(spotify:[\\w:]+)
-URxvt.matcher.launcher.3:   spotify -uri=$1
+!URxvt.matcher.pattern.0:    \\bhttp:\/\/open\.(spotify)\.com\/([\\w]+)\/([\\w]+)
+!URxvt.matcher.launcher.0:   spotify -uri=$1:$2:$3
+!
+!! Open youtube links in mpv!
+!URxvt.matcher.pattern.1:    \\b(http|https):\/\/www\.youtube\.com/watch\\?v=([\\w-&=]+)
+!URxvt.matcher.launcher.1:   mpv
+!
+!! Open other links in chromium
+!URxvt.matcher.pattern.2:    \\b(http|https|ftp):\/\/(?!www\\.youtube.*)(?!open\\.spotify.*)[\\w\\-\\@;\\/?:&=%\\$.+!*\x27,~#]+
+!URxvt.matcher.launcher.2:   chromium
+!! URxvt.matcher.launcher.2:   firefox
+!
+!URxvt.matcher.pattern.3:    \\b(spotify:[\\w:]+)
+!URxvt.matcher.launcher.3:   spotify -uri=$1
 
 URxvt.keysym.C-Delete:      perl:matcher:last
 URxvt.keysym.M-Delete:      perl:matcher:list

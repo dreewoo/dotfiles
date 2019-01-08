@@ -13,13 +13,16 @@ set $mod Mod4
 
 
 # font for window titles. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+
+font pango:Hack 22px
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec urxvtc
+#bindsym $mod+Return exec urxvtc
+bindsym $mod+Return exec termite
 
 # kill focused window
 bindsym $mod+Shift+Q kill
@@ -61,7 +64,7 @@ bindsym $mod+Shift+L move right
 
 bindsym $mod+Print exec scrot
 bindsym XF86TouchpadToggle exec synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')
-bindsym $mod+Control+p exec i3lock -f
+bindsym $mod+Control+p exec i3lock -f -i /home/jocelyn/.wallpaper.png
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -95,17 +98,18 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindcode $mod+d focus child
 
-set $w1   WEB
+#set $w1   WEB
+set $w1 1: 
 set $w2 2: 
 set $w3 3: 
 set $w4 4: 
 set $w5 5: 
 set $w6 6: 
 set $w7 7: 
-set $w8   MAIL
-set $w9   MEDIA
+set $w8 8:  
+set $w9 9:  
+set $w0 0:  
 #set $w0   IRC
-set $w0   IRC
 
 bindsym $mod+1 workspace $w1
 bindsym $mod+2 workspace $w2
@@ -123,8 +127,8 @@ bindsym $mod+Control+Left move workspace to output left
 bindsym $mod+Control+l move workspace to output right
 bindsym $mod+Control+h move workspace to output left
 
-#gaps inner 4
-#gaps outer 2
+gaps inner 6
+gaps outer 0
 
 # move focused container to workspace
 bindsym $mod+Shift+exclam move container to workspace $w1
@@ -152,10 +156,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym h resize shrink width 10 px or 10 ppt
-        bindsym j resize grow height 10 px or 10 ppt
-        bindsym k resize shrink height 10 px or 10 ppt
-        bindsym l resize grow width 10 px or 10 ppt
+        bindsym h resize shrink width 50 px or 50 ppt
+        bindsym j resize grow height 50 px or 50 ppt
+        bindsym k resize shrink height 50 px or 50 ppt
+        bindsym l resize grow width 50 px or 50 ppt
 
         # same bindings, but for the arrow keys
         bindsym 113 resize shrink width 10 px or 10 ppt
@@ -236,28 +240,27 @@ bindsym $mod+o scratchpad show
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+    i3bar_command i3bar -t
     font pango:Sauce Code Powerline, FontAwesome 9
-    position bottom
+    position top
     #mode hide
 #    status_command $HOME/.i3/conky-i3bar
     status_command i3status
     colors {
         separator  #666666
-        background #000000
+        background #00000044
         #background #131313
-        statusline #888888
-        focused_workspace  #000000 #000000 #cb4b16
-        active_workspace   #000000 #000000 #dddddd
-        inactive_workspace #000000 #000000 #888888
-        urgent_workspace   #000000 #000000 #d33682
+        statusline #aaaaaa
+        focused_workspace  #00000044 #00000044 #cb4b16
+        active_workspace   #00000044 #00000044 #dddddd
+        inactive_workspace #00000044 #00000044 #888888
+        urgent_workspace   #00000044 #00000044 #d33682
     }
 }
 
 exec --no-startup-id nm-applet
 exec --no-startup-id udiskie -s
 exec --no-startup-id redshift-gtk -l 48.5:2.2 -t 6000:4500
+exec --no-startup-id libinput-gestures-setup start
 #exec ntimed-client -t /tmp/ntimed.trace 0.fr.pool.ntp.org 1.fr.pool.ntp.org &
 #exec --no-startup-id pa-applet
-
-#exec i3bar -c conky -f "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*" -dtop --color-bar-fg "#aaaaaa" --color-bar-bg "#262626" --color-active-ws-fg "#ffffff" --color-active-ws-bg "#262626" --color-inactive-ws-fg "#aaaaaa" --color-inactive-ws-bg "#262626" --color-urgent-ws-bg "#ffffff" --color-urgent-ws-fg "#262626" --color-focus-ws-fg "#ffffff" --color-focus-ws-bg "#262626"
-
